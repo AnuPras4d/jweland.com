@@ -13,26 +13,33 @@ export default function UpdateOrderPage() {
   useEffect(() => {
     const fetchOrders = async () => {
       try {
-        const res = await fetch('/api/get-all-orders');
-        const data = await res.json();
-        setOrders(data);
+      const res = await fetch('/api/get-all-orders');
+const data = await res.json();
 
-        const status = {};
-        const shipping = {};
-        const tracking = {};
-        const disabled = {};
+if (!Array.isArray(data)) {
+  console.error('Expected array but got:', data);
+  return;
+}
 
-        data.forEach(order => {
-          status[order.razorpay_order_id] = order.status || 'Pending';
-          shipping[order.razorpay_order_id] = order.shipping_company || '';
-          tracking[order.razorpay_order_id] = order.tracking_id || '';
-          disabled[order.razorpay_order_id] = true;
-        });
+setOrders(data);
 
-        setStatusMap(status);
-        setShippingMap(shipping);
-        setTrackingMap(tracking);
-        setDisabledMap(disabled);
+const status = {};
+const shipping = {};
+const tracking = {};
+const disabled = {};
+
+data.forEach(order => {
+  status[order.razorpay_order_id] = order.status || 'Pending';
+  shipping[order.razorpay_order_id] = order.shipping_company || '';
+  tracking[order.razorpay_order_id] = order.tracking_id || '';
+  disabled[order.razorpay_order_id] = true;
+});
+
+setStatusMap(status);
+setShippingMap(shipping);
+setTrackingMap(tracking);
+setDisabledMap(disabled);
+
       } catch (error) {
         console.error('Error fetching orders:', error);
       }
@@ -86,26 +93,31 @@ export default function UpdateOrderPage() {
 
   const refreshOrders = async () => {
     try {
-      const res = await fetch('/api/get-all-orders');
-      const data = await res.json();
-      
-      // Update orders
-      setOrders(data);
+       const res = await fetch('/api/get-all-orders');
+    const data = await res.json();
 
-      // Update status, shipping, and tracking maps with fresh data
-      const status = {};
-      const shipping = {};
-      const tracking = {};
+if (!Array.isArray(data)) {
+  console.error('Expected array in refreshOrders but got:', data);
+  alert("⚠️ Something went wrong while loading orders. Please try again later.");
+  return;
+}
 
-      data.forEach(order => {
-        status[order.razorpay_order_id] = order.status || 'Pending';
-        shipping[order.razorpay_order_id] = order.shipping_company || '';
-        tracking[order.razorpay_order_id] = order.tracking_id || '';
-      });
+setOrders(data);
 
-      setStatusMap(status);
-      setShippingMap(shipping);
-      setTrackingMap(tracking);
+const status = {};
+const shipping = {};
+const tracking = {};
+
+data.forEach(order => {
+  status[order.razorpay_order_id] = order.status || 'Pending';
+  shipping[order.razorpay_order_id] = order.shipping_company || '';
+  tracking[order.razorpay_order_id] = order.tracking_id || '';
+});
+
+setStatusMap(status);
+setShippingMap(shipping);
+setTrackingMap(tracking);
+
     } catch (error) {
       console.error('Error refreshing orders:', error);
     }

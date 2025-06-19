@@ -1,33 +1,46 @@
 // app/srishtiproducts/[srishtiid]/page.jsx
 import db from '@/lib/db';
 import ProductDetailSrishti from '@/app/srishti/components/ProductDetailSrishti';
+import { notFound } from 'next/navigation';
 
+// ✅ For static generation
 export async function generateStaticParams() {
   const [rows] = await db.query('SELECT id FROM srishti');
   return rows.map(row => ({ srishtiid: row.id.toString() }));
 }
 
-export default async function ProductDetailSrishtiPage({ params }) {
-  const [rows] = await db.query('SELECT * FROM srishti WHERE id = ?', [params.srishtiid]);
-  const srishti = rows[0];
+export default async function ProductDetailSrishtiPage(context) {
+  const params = await context.params; // ✅ Safely await context.params
+  const srishtiid = params.srishtiid;
 
-  if (!srishti) {
-    return <div className="text-center text-red-500 mt-10">Product not found</div>;
+  const numericId = Number(srishtiid);
+  if (!numericId || Number.isNaN(numericId)) {
+    notFound();
   }
 
-  // ✅ Filter only available image fields
-  const images = [srishti.image1, srishti.image2, srishti.image3].filter(Boolean);
-
-  // ✅ Safely parse sizes JSON from DB
-  let sizes = [];
   try {
-    if (srishti.sizes) {
-      sizes = JSON.parse(srishti.sizes);
-      if (!Array.isArray(sizes)) sizes = [];
-    }
-  } catch (err) {
-    console.error('❌ Failed to parse sizes JSON:', err.message);
-  }
+    const [rows] = await db.query('SELECT * FROM srishti WHERE id = ?', [numericId]);
+    const srishti = rows[0];
 
-  return <ProductDetailSrishti srishti={{ ...srishti, sizes }} images={images} />;
+    if (!srishti) notFound();
+
+    const images = [srishti.image1, srishti.image2, srishti.image3].filter(Boolean);
+
+    let sizes = [];
+    try {
+      if (srishti.sizes) {
+        const parsed = JSON.parse(srishti.sizes);
+        if (Array.isArray(parsed)) {
+          sizes = parsed;
+        }
+      }
+    } catch (err) {
+      console.error('❌ Failed to parse sizes JSON:', err.message);
+    }
+
+    return <ProductDetailSrishti srishti={{ ...srishti, sizes }} images={images} />;
+  } catch (err) {
+    console.error('❌ DB error:', err.message);
+    notFound();
+  }
 }

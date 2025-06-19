@@ -11,22 +11,24 @@ export async function POST(req) {
     );
 
     if (rows.length > 0) {
+      // ✅ Set secure cookie
       const response = NextResponse.json({ success: true });
 
-      // Set secure cookie for session
       response.cookies.set('admin_token', 'secure_token_value', {
         httpOnly: true,
         path: '/',
         maxAge: 60 * 60 * 24, // 1 day
+        sameSite: 'lax',
+        secure: process.env.NODE_ENV === 'production', // true on production
       });
 
       return response;
-    } else {
-      return NextResponse.json(
-        { success: false, message: 'Invalid credentials' },
-        { status: 401 }
-      );
     }
+
+    return NextResponse.json(
+      { success: false, message: 'Invalid credentials' },
+      { status: 401 }
+    );
   } catch (error) {
     console.error('❌ Login Error:', error.message);
     return NextResponse.json(

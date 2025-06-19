@@ -1,39 +1,41 @@
-import mysql from 'mysql2/promise';
+import pool from '@/lib/db'; // Use the shared connection pool
+import { NextResponse } from 'next/server';
 
-export async function GET(req) {
+export async function GET() {
   try {
-    // 1. Create DB connection
-    const db = await mysql.createConnection({
-      host: 'sql12.freesqldatabase.com',
-      user: 'sql12785563',
-      password: 'gRtChFK6j4',
-      database: 'sql12785563',
-    });
-
-    // 2. Get all orders
-    const [orders] = await db.query(`SELECT * FROM orderdetails ORDER BY id DESC`);
-
-    // 3. Get all order products
-    const [products] = await db.query(`SELECT * FROM orderproducts`);
-
-    // 4. Group products by razorpay_order_id
-    const orderMap = {};
-    for (const order of orders) {
-      order.products = [];
-      orderMap[order.razorpay_order_id] = order;
+    // Check if the pool exists and is usable
+    if (!pool) {
+      throw new Error('Database pool not initialized.');
     }
 
-    for (const product of products) {
-      const order = orderMap[product.razorpay_order_id];
-      if (order) {
-        order.products.push(product);
+    const conn = await pool.getConnection();
+
+    try {
+      const [orders] = await conn.query(`SELECT * FROM orderdetails ORDER BY id DESC`);
+      const [products] = await conn.query(`SELECT * FROM orderproducts`);
+
+      const orderMap = {};
+      for (const order of orders) {
+        order.products = [];
+        orderMap[order.razorpay_order_id] = order;
       }
-    }
 
-    // 5. Return orders with their products
-    return Response.json(Object.values(orderMap));
+      for (const product of products) {
+        const order = orderMap[product.razorpay_order_id];
+        if (order) {
+          order.products.push(product);
+        }
+      }
+
+      return NextResponse.json(Object.values(orderMap));
+    } finally {
+      conn.release(); // Always release the connection
+    }
   } catch (error) {
-    console.error('Error loading orders:', error);
-    return Response.json({ error: error.message }, { status: 500 });
+    console.error('❌ Error loading orders:', error.message);
+    return NextResponse.json(
+      { error: 'Failed to load orders', details: error.message },
+      { status: 500 }
+    );
   }
 }

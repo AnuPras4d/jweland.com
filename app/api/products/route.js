@@ -6,6 +6,7 @@ import path from 'path';
 import { Readable } from 'stream';
 import db from '@/lib/db';
 
+// ❗ Important: this config is ignored in app router, but required for formidable to work properly
 export const config = {
   api: {
     bodyParser: false,
@@ -18,32 +19,40 @@ if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir, { recursive: true });
 }
 
-// Sanitize filenames
+// Sanitize uploaded filenames
 const sanitizeFilename = (filename) => {
   return filename
     .replace(/\s+/g, '-')             // Replace spaces with dashes
-    .replace(/[^a-zA-Z0-9.-]/g, '')   // Remove special characters
+    .replace(/[^a-zA-Z0-9.-]/g, '');  // Remove special characters
 };
 
+// Initialize formidable
 const form = formidable({
   multiples: true,
   uploadDir,
   keepExtensions: true,
-  filename: (name, ext, part) => `${Date.now()}-${sanitizeFilename(part.originalFilename)}`,
+  filename: (name, ext, part) =>
+    `${Date.now()}-${sanitizeFilename(part.originalFilename)}`,
 });
 
-// GET: Fetch all products
+// ✅ GET: Fetch all products
 export async function GET() {
   try {
     const [rows] = await db.query('SELECT * FROM products ORDER BY id DESC');
-    return NextResponse.json(rows);
+
+    if (!Array.isArray(rows)) {
+      console.warn('⚠️ Unexpected MySQL response, returning empty array.');
+      return NextResponse.json([], { status: 200 });
+    }
+
+    return NextResponse.json(rows, { status: 200 });
   } catch (err) {
     console.error('❌ DB GET Error:', err.message);
     return NextResponse.json({ error: 'DB error' }, { status: 500 });
   }
 }
 
-// POST: Add new product
+// ✅ POST: Add new product
 export async function POST(req) {
   const stream = Readable.fromWeb(req.body);
   const nodeReq = Object.assign(stream, {
@@ -75,14 +84,15 @@ export async function POST(req) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
+    // ✅ Insert into database
     await db.query(
-      'INSERT INTO products (name, price, description, category, sizes, thumbnail, image1, image2, image3) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [name, price, description, category, sizes, thumbnail, image1, image2, image3]
+      'INSERT INTO products (name, price, description, category, sizes, thumbnail, image1, image2, image3, in_stock) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
+      [name, price, description, category, sizes, thumbnail, image1, image2, image3, true]
     );
 
-    return NextResponse.json({ message: '✅ Product added' });
+    return NextResponse.json({ message: '✅ Product added successfully' });
   } catch (err) {
-    console.error('❌ Upload Error:', err.message, err.stack);
+    console.error('❌ Upload Error:', err.message);
     return NextResponse.json({ error: 'Upload failed' }, { status: 500 });
   }
 }

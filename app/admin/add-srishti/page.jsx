@@ -6,8 +6,8 @@ import ProductFormSrishti from "@/app/srishti/components/ProductFormSrishti";
 
 export default function AddSrishtiPage() {
   return (
-    <div>
-      <h1 className="text-2xl font-bold mb-6">Srishti Product</h1>
+    <div className="pt-8">
+      <h1 className="text-2xl font-bold mb-6 text-center">Srishti Product</h1>
       <ProductFormSrishti />
     </div>
   );

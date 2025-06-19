@@ -275,6 +275,22 @@ export default function OrderPage() {
             </div>
           </div>
         </div>
+        {/* Google Review Section */}
+<div className="bg-white border-t border-gray-200 px-6 py-8 rounded-b-lg mt-6">
+  <h3 className="text-base font-medium text-gray-900 mb-3">Enjoyed Your Experience?</h3>
+  <p className="text-sm text-gray-600 mb-4">
+    We’d love to hear your feedback! Your reviews help us improve and grow.
+  </p>
+  <a
+    href="https://www.google.com/search?client=ms-android-oppo-rev1&sca_esv=f96236a721133e6f&sxsrf=AE3TifPky-XdM2eFi6TvzkHEYCKaqAD5dg:1750341513745&kgmid=/g/11trhz_n_r&q=Jeweland+Precious+Metals&shndl=30&shem=lstuoc2&source=sh/x/loc/act/m1/2&kgs=fd0f634b475edf83" // Replace with actual Google review link if available
+    target="_blank"
+    rel="noopener noreferrer"
+    className="inline-block px-6 py-2 border border-gray-300 rounded-md text-sm font-medium text-gray-800 hover:bg-gray-100 transition"
+  >
+    ⭐ Leave a Google Review
+  </a>
+</div>
+
       </div>
     </div>
   );

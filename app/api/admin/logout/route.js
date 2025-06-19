@@ -1,13 +1,16 @@
 import { NextResponse } from 'next/server';
 
-export async function POST() {
+export function POST() {
+  // ✅ Create a response object
   const response = NextResponse.json({ success: true });
 
-  // Clear the secure cookie
+  // ✅ Remove the cookie by setting maxAge to 0
   response.cookies.set('admin_token', '', {
-    httpOnly: true,
     path: '/',
     maxAge: 0,
+    sameSite: 'lax',
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
   });
 
   return response;
