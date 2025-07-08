@@ -68,23 +68,6 @@ export default function ProductDetailSrishti({ srishti, images }) {
                   />
                 </div>
 
-                {/* Wishlist and Share */}
-                <div className="absolute top-4 right-4 flex flex-col gap-2">
-                  <button
-                    onClick={() => setIsWishlisted(!isWishlisted)}
-                    className={`p-2 rounded-full shadow-md transition-all ${
-                      isWishlisted
-                        ? 'bg-red-50 text-red-500'
-                        : 'bg-white text-gray-400 hover:text-red-500'
-                    }`}
-                  >
-                    <Heart size={20} fill={isWishlisted ? 'currentColor' : 'none'} />
-                  </button>
-                  <button className="p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-[#0a1d37] transition-colors">
-                    <Share2 size={20} />
-                  </button>
-                </div>
-
                 {/* Image Counter */}
                 <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">
                   {current + 1} / {images.length}
@@ -122,15 +105,15 @@ export default function ProductDetailSrishti({ srishti, images }) {
                 {/* Header */}
                 <div className="border-b border-gray-200 pb-6 mb-6">
                   <div className="flex items-center gap-2 mb-3">
-                    <span className="px-3 py-1 bg-[#0a1d37] text-white text-xs font-medium rounded-full uppercase tracking-wide">
+                    <span className="px-3 py-1 bg-[#014034] text-white text-xs font-medium rounded-full uppercase tracking-wide">
                       {srishti.category}
                     </span>
                   </div>
-                  <h1 className="text-2xl lg:text-3xl font-bold text-[#0a1d37] mb-4 leading-tight">
+                  <h1 className="text-2xl lg:text-3xl font-bold text-[#000000] mb-4 leading-tight">
                     {srishti.name}
                   </h1>
                   <div className="flex items-baseline gap-3">
-                    <span className="text-3xl font-bold text-[#0a1d37]">
+                    <span className="text-3xl font-bold text-[#000000]">
                       ₹{selectedSize?.price || srishti.price}
                     </span>
                     {selectedSize && selectedSize.price !== srishti.price && (
@@ -173,13 +156,13 @@ export default function ProductDetailSrishti({ srishti, images }) {
                       const result = await handleAddBuynow();
                       if (result) router.push('/cart');
                     }}
-                    className="w-full bg-[#0a1d37] text-white hover:bg-[#132b4d] transition-colors px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
+                    className="w-full bg-[#014034] text-white hover:bg-[#014036] transition-colors px-8 py-4 rounded-xl font-semibold text-lg shadow-lg hover:shadow-xl transform hover:-translate-y-0.5 transition-all duration-200"
                   >
                     Buy Now
                   </button>
                   <button
                     onClick={handleAdd}
-                    className="w-full border-2 border-[#0a1d37] bg-white text-[#0a1d37] hover:bg-gray-50 transition-colors px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2"
+                    className="w-full border-2 border-[#014034] bg-white text-[#014034] hover:bg-gray-50 transition-colors px-8 py-4 rounded-xl font-semibold text-lg flex items-center justify-center gap-2"
                   >
                     <ShoppingCart size={20} />
                     Add to Cart

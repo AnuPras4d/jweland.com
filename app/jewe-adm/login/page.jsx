@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import Link from 'next/link';
 
 export default function AdminLogin() {
   const [form, setForm] = useState({ username: '', password: '' });
@@ -26,7 +27,7 @@ export default function AdminLogin() {
 
     if (res.ok && data.success) {
       // ✅ Server sets httpOnly cookie — no need to use localStorage
-      router.push('/admin');
+      router.push('/jewe-adm');
     } else {
       setError(data.message || 'Login failed');
     }
@@ -132,9 +133,9 @@ export default function AdminLogin() {
 
         <div className="mt-6 text-center text-sm text-slate-600">
           Having trouble?{' '}
-          <a href="https://www.koremaed.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-medium">
+          <Link href="https://www.koremaed.com" target="_blank" rel="noopener noreferrer" className="text-blue-600 hover:text-blue-700 font-medium">
             Contact Support
-          </a>
+          </Link>
         </div>
       </div>
     </div>

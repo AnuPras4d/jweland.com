@@ -88,20 +88,6 @@ export default function ProductDetailClient({ product, images }) {
                     />
                   </div>
                   
-                  {/* Image Actions */}
-                  <div className="absolute top-4 right-4 flex flex-col gap-2">
-                    <button 
-                      onClick={() => setIsWishlisted(!isWishlisted)}
-                      className={`p-2 rounded-full shadow-md transition-all ${
-                        isWishlisted ? 'bg-red-50 text-red-500' : 'bg-white text-gray-400 hover:text-red-500'
-                      }`}
-                    >
-                      <Heart size={20} fill={isWishlisted ? 'currentColor' : 'none'} />
-                    </button>
-                    <button className="p-2 bg-white rounded-full shadow-md text-gray-400 hover:text-[#0a1d37] transition-colors">
-                      <Share2 size={20} />
-                    </button>
-                  </div>
 
                   {/* Image Counter */}
                   <div className="absolute bottom-4 left-4 bg-black/70 text-white px-3 py-1 rounded-full text-sm">

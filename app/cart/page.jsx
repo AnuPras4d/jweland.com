@@ -1,6 +1,7 @@
 'use client';
 import { useCart } from '@/context/CartContext';
 import { useTotal } from '@/context/TotalContext';
+import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -92,9 +93,9 @@ export default function CartPage() {
             </div>
             <h3 className="text-xl font-semibold text-[#0a1d37]">Your cart is empty</h3>
             <p className="text-gray-500 mb-6">Add items to start your order.</p>
-            <a href="/#productlist" className="inline-block bg-[#0a1d37] hover:bg-[#08152d] text-white font-medium px-6 py-3 rounded-xl transition-all duration-200">
+            <Link href="/#productlist" className="inline-block bg-[#0a1d37] hover:bg-[#08152d] text-white font-medium px-6 py-3 rounded-xl transition-all duration-200">
               Continue Shopping
-            </a>
+            </Link>
           </div>
         ) : (
           <div className="grid grid-cols-1 xl:grid-cols-4 gap-8">
@@ -148,10 +149,10 @@ export default function CartPage() {
                   <div className="flex justify-between border-b pb-2">Items <span>{cartItems.length}</span></div>
                   <div className="flex justify-between border-b pb-2">Subtotal <span>₹{subtotal}</span></div>
                   <div className="flex justify-between border-b pb-2 text-green-600">Discount <span>- ₹{discount.toFixed(2)}</span></div>
-                  <div className="flex items-center gap-2 mt-3 bg-[#e6f5ec] p-3 rounded-xl">
+                  {/* <div className="flex items-center gap-2 mt-3 bg-[#e6f5ec] p-3 rounded-xl">
                     <input type="checkbox" id="giftOption" checked={isGift} onChange={(e) => setIsGift(e.target.checked)} className="accent-green-600" />
                     <label htmlFor="giftOption" className="text-sm">Add Gift Wrap (+₹50)</label>
-                  </div>
+                  </div> */}
                   <div className="flex justify-between items-center text-lg font-semibold pt-4 border-t">
                     Total <span className="text-2xl font-bold">₹{total.toFixed(2)}</span>
                   </div>

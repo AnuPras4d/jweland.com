@@ -24,7 +24,7 @@ export default async function ProductDetailSrishtiPage(context) {
 
     if (!srishti) notFound();
 
-    const images = [srishti.image1, srishti.image2, srishti.image3].filter(Boolean);
+    const images = [srishti.thumbnail,srishti.image1, srishti.image2, srishti.image3].filter(Boolean);
 
     let sizes = [];
     try {

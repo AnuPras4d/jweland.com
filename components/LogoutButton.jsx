@@ -9,7 +9,7 @@ export default function LogoutButton() {
       method: 'POST',
     });
 
-    router.push('/admin/login');
+    router.push('/jewe-adm/login');
   };
 
   return (

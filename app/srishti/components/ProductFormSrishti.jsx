@@ -70,19 +70,20 @@ export default function ProductFormSrishti() {
         className="col-span-full border p-3 rounded text-sm"
       />
 
-      <select
-        name="category"
-        value={form.category}
-        onChange={handleChange}
-        className="col-span-full sm:col-span-1 border p-3 rounded text-sm"
-      >
-        <option value="">Select Category</option>
-        <option value="ring">Ring</option>
-        <option value="necklace">Necklace</option>
-        <option value="bracelet">Bracelet</option>
-        <option value="earrings">Earrings</option>
-        <option value="pendant">Pendant</option>
-      </select>
+     <select
+  name="category"
+  value={form.category}
+  onChange={handleChange}
+  className="col-span-full sm:col-span-1 border p-3 rounded text-sm"
+>
+  <option value="">Select Category</option>
+  <option value="CHAINS">CHAINS</option>
+  <option value="BRACELETS">BRACELETS</option>
+  <option value="BANGLES">BANGLES</option>
+  <option value="RINGS">RINGS</option>
+  <option value="CUSTOMISED">CUSTOMISED</option>
+</select>
+
 
       <textarea
         name="description"

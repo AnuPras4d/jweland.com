@@ -6,7 +6,7 @@ export default function AdminLayout({ children }) {
   const pathname = usePathname();
 
   // Only show sidebar on protected routes
-  if (pathname === '/admin/login') {
+  if (pathname === '/jewe-adm/login') {
     return <>{children}</>;
   }
 

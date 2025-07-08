@@ -69,14 +69,14 @@ export default function Sidebar() {
         `}
       >
         <div className="px-6">
-          <a href="/admin" className="block">
+          <Link href="/jewe-adm" className="block">
             <div className="border-b border-slate-100 pb-6 mb-8 mt-8 lg:mt-2">
               <h2 className="text-xl sm:text-2xl font-semibold text-slate-900 tracking-tight">
                 Admin Dashboard
               </h2>
               <p className="text-sm text-slate-500 mt-1">Management Console</p>
             </div>
-          </a>
+          </Link>
         </div>
 
         <nav className="space-y-8">
@@ -90,7 +90,7 @@ export default function Sidebar() {
             <ul className="space-y-1">
               <li>
                 <Link
-                  href="/admin/add-product"
+                  href="/jewe-adm/add-product"
                   className="flex items-center px-6 py-3 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-150 border-l-4 border-transparent hover:border-blue-500 group"
                   onClick={() => setIsOpen(false)}
                 >
@@ -104,7 +104,7 @@ export default function Sidebar() {
               </li>
               <li>
                 <Link
-                  href="/admin/delete-product"
+                  href="/jewe-adm/delete-product"
                   className="flex items-center px-6 py-3 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-150 border-l-4 border-transparent hover:border-red-500 group"
                   onClick={() => setIsOpen(false)}
                 >
@@ -129,7 +129,7 @@ export default function Sidebar() {
             <ul className="space-y-1">
               <li>
                 <Link
-                  href="/admin/add-srishti"
+                  href="/jewe-adm/add-srishti"
                   className="flex items-center px-6 py-3 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-150 border-l-4 border-transparent hover:border-green-500 group"
                   onClick={() => setIsOpen(false)}
                 >
@@ -143,7 +143,7 @@ export default function Sidebar() {
               </li>
               <li>
                 <Link
-                  href="/admin/delete-srishti"
+                  href="/jewe-adm/delete-srishti"
                   className="flex items-center px-6 py-3 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-150 border-l-4 border-transparent hover:border-red-500 group"
                   onClick={() => setIsOpen(false)}
                 >
@@ -168,7 +168,7 @@ export default function Sidebar() {
             <ul className="space-y-1">
               <li>
                 <Link
-                  href="/admin"
+                  href="/jewe-adm"
                   className="flex items-center px-6 py-3 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-150 border-l-4 border-transparent hover:border-purple-500 group"
                   onClick={() => setIsOpen(false)}
                 >
@@ -182,7 +182,7 @@ export default function Sidebar() {
               </li>
               <li>
                 <Link
-                  href="/admin/create-coupon"
+                  href="/jewe-adm/create-coupon"
                   className="flex items-center px-6 py-3 text-slate-700 hover:bg-slate-50 hover:text-slate-900 transition-colors duration-150 border-l-4 border-transparent hover:border-amber-500 group"
                   onClick={() => setIsOpen(false)}
                 >

@@ -7,37 +7,60 @@ export default function ProductListSrishti() {
   const [srishti, setSrishti] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [category, setCategory] = useState('All');
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
 
+  const categories = [
+    'All',
+    'CHAINS',
+    'BRACELETS',
+    'BANGLES',
+    'RINGS',
+    'CUSTOMISED',
+  ];
+
+  
   useEffect(() => {
-    fetch('/api/srishti')
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setSrishti(data);
-          setFiltered(filterByCategory(data, category));
-        } else {
-          console.error('❌ Unexpected response from /api/srishti:', data);
-          setSrishti([]);
-          setFiltered([]);
+  const fetchSrishti = async () => {
+    try {
+      const res = await fetch(`/api/srishti/paginated?page=${page}`);
+      const data = await res.json();
+
+      if (Array.isArray(data.items)) {
+        let filteredItems = data.items;
+
+        if (category !== 'All') {
+          filteredItems = filteredItems.filter((p) =>
+            p.category?.toLowerCase().includes(category.toLowerCase())
+          );
         }
-      })
-      .catch((err) => {
-        console.error('❌ Failed to fetch srishti items:', err);
+
+        if (filteredItems.length === 0 && page !== 1) {
+          setPage(1); // Reset to first page if current page is empty
+        } else {
+          setSrishti(data.items);
+          setTotalPages(data.totalPages || 1);
+          setFiltered(filteredItems);
+        }
+      } else {
+        console.error('❌ Unexpected response from /api/srishti:', data);
         setSrishti([]);
         setFiltered([]);
-      });
-  }, []);
+      }
+    } catch (err) {
+      console.error('❌ Failed to fetch srishti items:', err);
+      setSrishti([]);
+      setFiltered([]);
+    }
+  };
+
+  fetchSrishti();
+}, [page, category]);
+
 
   const handleCategory = (cat) => {
     setCategory(cat);
-    setFiltered(filterByCategory(srishti, cat));
-  };
-
-  const filterByCategory = (items, cat) => {
-    if (cat === 'All') return items;
-    return items.filter((item) =>
-      item.category?.toLowerCase().includes(cat.toLowerCase())
-    );
+    setPage(1);
   };
 
   const getDisplayPrice = (item) => {
@@ -46,7 +69,7 @@ export default function ProductListSrishti() {
         const parsed = JSON.parse(item.sizes);
         if (Array.isArray(parsed) && parsed.length > 0) {
           const sorted = parsed.sort((a, b) => a.price - b.price);
-          return `${sorted[0].price} onwards`;
+          return `${sorted[0].price}`;
         }
       } catch {
         // Ignore malformed JSON
@@ -55,28 +78,33 @@ export default function ProductListSrishti() {
     return item.price;
   };
 
-  const categories = ['All', 'Ring', 'Necklace', 'Bracelet', 'Earrings'];
+  const handlePrevPage = () => setPage((prev) => Math.max(prev - 1, 1));
+  const handleNextPage = () => setPage((prev) => Math.min(prev + 1, totalPages));
 
-  return (
-    <div className="p-4 sm:p-6 max-w-7xl mx-auto bg-white text-[#013220]">
-      {/* Filter Buttons */}
-      <div className="flex flex-wrap justify-center gap-3 mb-8 sm:mb-10">
-        {categories.map((cat) => (
-          <button
-            key={cat}
-            onClick={() => handleCategory(cat)}
-            className={`px-4 py-2 rounded-full text-sm font-medium transition duration-200 ${
-              category === cat
-                ? 'bg-[#014034] text-white shadow'
-                : 'bg-[#edf5f0] text-[#014034] hover:bg-[#d4ede1]'
-            }`}
-          >
-            {cat}
-          </button>
-        ))}
-      </div>
+ return (
+  <div className="p-4 sm:p-6 max-w-7xl mx-auto bg-white text-[#013220]">
+    {/* Category Filters */}
+    <div className="flex flex-wrap justify-center gap-3 mb-8 sm:mb-10">
+      {categories.map((cat) => (
+        <button
+          key={cat}
+          onClick={() => {
+            setPage(1);           // ✅ Reset page on category change
+            setCategory(cat);
+          }}
+          className={`px-4 py-2 rounded-full text-sm font-medium transition duration-200 ${
+            category === cat
+              ? 'bg-[#014034] text-white shadow'
+              : 'bg-[#edf5f0] text-[#014034] hover:bg-[#d4ede1]'
+          }`}
+        >
+          {cat}
+        </button>
+      ))}
+    </div>
 
-      {/* Srishti Grid */}
+    {/* Srishti Grid or Empty State */}
+    {filtered.length > 0 ? (
       <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">
         {filtered.map((item) => (
           <div
@@ -138,6 +166,38 @@ export default function ProductListSrishti() {
           </div>
         ))}
       </div>
-    </div>
-  );
+    ) : (
+      <div className="flex flex-col items-center justify-center text-center py-20 text-gray-500">
+        <p className="text-lg font-medium">No products found</p>
+        <p className="text-sm text-gray-400">
+          We couldn’t find anything in <span className="font-semibold">{category}</span> category.
+        </p>
+      </div>
+    )}
+
+    {/* Pagination Controls */}
+    {filtered.length > 0 && (
+      <div className="flex justify-center items-center mt-10 gap-4">
+        <button
+          onClick={handlePrevPage}
+          disabled={page === 1}
+          className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Previous
+        </button>
+        <span className="font-semibold text-gray-700">
+          Page {page} of {totalPages}
+        </span>
+        <button
+          onClick={handleNextPage}
+          disabled={page === totalPages}
+          className="px-4 py-2 rounded bg-gray-200 hover:bg-gray-300 disabled:opacity-50"
+        >
+          Next
+        </button>
+      </div>
+    )}
+  </div>
+);
+
 }
