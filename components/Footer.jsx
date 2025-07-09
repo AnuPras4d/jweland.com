@@ -2,6 +2,7 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { Instagram, Facebook } from 'lucide-react';
 
 const Footer = () => {
   const contactInfo = [
@@ -23,9 +24,32 @@ const Footer = () => {
             height={40}
             className="object-contain mb-3"
           />
-          <p className="text-gray-400 leading-relaxed text-xs">
+          <p className="text-gray-400 leading-relaxed text-xs mb-4">
             Jeweland's 925 silver jewellery blends timeless elegance with modern style—crafted from sterling silver, skin-safe, anti-tarnish, and perfect for daily or special wear.
           </p>
+          
+          {/* Social Media Links */}
+          <div className="flex gap-3">
+            <Link
+              href="https://www.instagram.com/jeweland_preciousmetals?igsh=ODB2eWN3NzFyaHhn"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group border border-gray-600 hover:border-gray-400 text-gray-400 hover:text-white w-8 h-8 rounded transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+              aria-label="Follow us on Instagram"
+            >
+              <Instagram className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+            </Link>
+            
+            <Link
+              href="https://www.facebook.com/share/1BCxcwqcbk/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group border border-gray-600 hover:border-gray-400 text-gray-400 hover:text-white w-8 h-8 rounded transition-all duration-300 transform hover:scale-105 flex items-center justify-center"
+              aria-label="Like us on Facebook"
+            >
+              <Facebook className="w-4 h-4 transition-transform duration-300 group-hover:scale-110" />
+            </Link>
+          </div>
         </div>
 
         {/* Contact Info */}
