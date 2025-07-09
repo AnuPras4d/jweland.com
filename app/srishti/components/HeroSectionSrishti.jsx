@@ -26,15 +26,16 @@ const HeroSectionSrishti = () => {
           
           {/* Main Heading */}
           <div className="mb-8 animate-fade-in-up">
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-light tracking-[0.15em] mb-3 text-shadow-lg">
-              Welcome To
-              <span className="block font-bold text-3xl sm:text-4xl md:text-5xl bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
-                Srishti
-              </span>
-            </h1>
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-serif font-light tracking-[0.15em] mb-3 text-shadow-lg mt-4 sm:mt-6">
+  Welcome To
+  <span className="block font-bold text-3xl sm:text-4xl md:text-5xl bg-gradient-to-r from-white via-gray-100 to-white bg-clip-text text-transparent">
+    Srishti
+  </span>
+</h1>
+
             
             {/* Subtitle */}
-            <p className="text-xs sm:text-sm md:text-base font-medium tracking-widest text-gray-200 mb-0">
+            <p className="text-xs sm:text-sm md:text-base font-medium tracking-widest text-gray-200 sm:mt-0">
               PURE SILVER COLLECTIONS
             </p>
             
