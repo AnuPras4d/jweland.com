@@ -34,7 +34,7 @@ const HeroSectionSrishti = () => {
             </h1>
             
             {/* Subtitle */}
-            <p className="text-xs sm:text-sm md:text-base font-medium tracking-widest text-gray-200 mb-2">
+            <p className="text-xs sm:text-sm md:text-base font-medium tracking-widest text-gray-200 mb-0">
               PURE SILVER COLLECTIONS
             </p>
             

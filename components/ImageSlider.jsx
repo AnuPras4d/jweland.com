@@ -14,7 +14,7 @@ const ImageSlider = () => {
   }, []);
 
   return (
-    <div className="relative w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px] overflow-hidden mt-0">
+    <div className="relative w-full h-[250px] sm:h-[300px] md:h-[400px] lg:h-[450px] overflow-hidden mt-1">
       {sliderImages.map((img, index) => (
         <img
           key={index}
