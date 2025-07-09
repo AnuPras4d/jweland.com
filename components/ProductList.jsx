@@ -94,7 +94,7 @@ export default function ProductListPage() {
               <svg className="w-4 h-4 text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.414A1 1 0 013 6.707V4z" />
               </svg>
-              <span className="font-medium text-gray-700">Category: <span className="text-gray-900 font-semibold">{category}</span></span>
+              <span className="font-medium text-gray-700">Products: <span className="text-gray-900 font-semibold">{category}</span></span>
             </div>
             <svg 
               className={`w-5 h-5 text-gray-500 transition-transform duration-200 ${showFilters ? 'rotate-180' : ''}`}
