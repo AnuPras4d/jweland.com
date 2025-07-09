@@ -54,7 +54,7 @@ const HeroSectionSrishti = () => {
           </div>
 
           {/* Call to Action */}
-          <div className="animate-fade-in-up animation-delay-400">
+          <div className="animate-fade-in-up mb-1 animation-delay-400">
             <Link href="https://wa.me/919072969697" passHref>
               <span className="group relative inline-flex items-center justify-center px-6 py-3 text-sm sm:text-base font-semibold text-gray-900 bg-white rounded-full shadow-xl transition-all duration-300 hover:bg-gray-100 hover:shadow-2xl hover:scale-105 cursor-pointer">
                 <span className="relative z-10">
