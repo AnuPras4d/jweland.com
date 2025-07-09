@@ -7,8 +7,8 @@ const HeroSection = () => {
     <section className="relative h-[350px] sm:h-[400px] md:h-[450px] lg:h-[550px] overflow-hidden">
       {/* Background Image */}
       <img 
-        src="https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" 
-        alt="Beautiful jewelry" 
+        src='/hero.jpg'
+        alt="Beautiful jewelry"   
         className="absolute inset-0 w-full h-full object-cover"
       />
 

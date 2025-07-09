@@ -27,24 +27,12 @@ const Header = () => {
                 className="w-32 h-32 object-contain"
               /></a>
               <div className="flex flex-col sm:flex-row sm:items-center sm:space-x-2">
-                {/* <span className="text-lg sm:text-xl font-bold text-gray-800 leading-tight">JWELAND</span>
-                <span className="text-xs text-gray-500 hidden sm:block">PRECIOUS METALS</span> */}
+ 
               </div>
             </div>
           </div>
 
-          {/* Navigation - Desktop 
-          <nav className="hidden md:flex space-x-6 lg:space-x-10">
-            <a href="#" className="text-[#0a1f44] font-semibold tracking-wide hover:underline underline-offset-4 decoration-2 decoration-[#0a1f44] transition duration-200">
-              HOME
-            </a>
-            <a href="#" className="text-[#001233] font-medium tracking-wide hover:underline underline-offset-4 decoration-2 decoration-[#0a1f44] transition duration-200">
-              ABOUT
-            </a>
-            <a href="#" className="text-[#001233] font-medium tracking-wide hover:underline underline-offset-4 decoration-2 decoration-[#0a1f44] transition duration-200">
-              CONTACTS
-            </a>
-          </nav> */}
+        
 
           {/* Right side icons */}
           <div className="flex items-center space-x-3 sm:space-x-5">
@@ -57,14 +45,7 @@ const Header = () => {
               </span>
             </div>
 
-            {/* Mobile menu button 
-            <button 
-              onClick={toggleMobileMenu}
-              className="md:hidden w-6 h-6 text-[#001233] hover:text-[#0a1f44] transition duration-200"
-              aria-label="Toggle mobile menu"
-            >
-              {isMobileMenuOpen ? <X /> : <Menu />}
-            </button> */}
+        
           </div>
         </div>
 
